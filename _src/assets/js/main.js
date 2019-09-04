@@ -110,7 +110,6 @@ const loadFileToImages = function() {
 const form = document.querySelector("form");
 // Creo un objeto File Reader
 const fr = new FileReader();
-const button = document.querySelector(".share__btn");
 // Agarro el espacio donde se va a pintar la URL con la tarjeta generada
 const urlCard = document.querySelector(".created_card_small");
 
@@ -122,7 +121,7 @@ function loadPhoto(ev) {
     fr.addEventListener("load", sendData);
     fr.readAsDataURL(myPhoto);
   } else {
-    sendData()
+    sendData();
   }
 }
 
@@ -138,7 +137,7 @@ function loadPhoto(ev) {
 //   fr.readAsDataURL(createPaletteSelectorFunction);
 // }
 
-button.addEventListener("click", loadPhoto);
+
 
 // Función que transforma los valores del formulario en JSON excepto los botones.
 // function getJSONFromInputs(inputs) {

@@ -12,6 +12,7 @@ function showURL(data) {
     // Update twitter button URL
     const twitterButton = document.querySelector(".js-button-twitter");
     twitterButton.href = `https://twitter.com/intent/tweet?text=Mira mi tarjeta de visita ${data.cardURL}`;
+    twitterButton.style.display = 'flex';
   } else {
     urlCard.innerHTML = "ERROR:" + data.error;
   }
@@ -39,14 +40,9 @@ function sendRequest(json) {
 
 //Función que es llamada después del loadPhoto y envía los valores JSON a la función que llama a la API.
 function sendData() {
-  // let inputs = Array.from(form.elements);
-  // let json = getJSONFromInputs(inputs);
-  // json.photo = fr.result || JSON.parse(localStorage);
   let json = JSON.parse(localStorage.getItem('userData'));
   sendRequest(json);
 }
-
-//Cambiar esto!
 
 function changeButtonColor() {
   if (
@@ -57,12 +53,15 @@ function changeButtonColor() {
     githubInput.value &&
     photo.src
   ) {
-    //if (nameInput.value && jobInput.value && emailInput.value && linkedinInput.value && githubInput.value && browse.value) {
     buttonShare.style.background = "#e17334";
   } else {
     buttonShare.style.background = "lightgrey";
   }
 }
 
-//Cambiar esto!
+function handleShareBtnClick(ev) {
+  document.querySelector('.created_card').style.display = 'flex';
+  loadPhoto(ev);
+}
 
+buttonShare.addEventListener("click", handleShareBtnClick);

@@ -7,14 +7,14 @@
     display: flex;
     justify-content: center;
   }
-  
+
   &__btn {
     cursor: pointer;
   }
 }
 
 .created_card {
-  display: flex;
+  display: none;
   flex-flow: column nowrap;
   align-items: center;
   padding: 20px;
@@ -35,6 +35,7 @@
   }
 
   &_button {
+    display: none;
     margin: 20px;
     padding: 10px;
     background: $twitterButton;
