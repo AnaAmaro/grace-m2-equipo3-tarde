@@ -21,42 +21,6 @@ function autoPreview(variableinput, variableoutput, defaultValue) {
   inputText.addEventListener("keyup", changePara);
 }
 
-// change palettes function
-
-const previewCard = document.querySelector(".js-palettecontainer");
-
-function createPaletteSelectorFunction(classPalette) {
-  return function() {
-    previewCard.className = `js-card ${classPalette}`;
-  };
-}
-
-const selectPalette1 = createPaletteSelectorFunction("palette1");
-const selectPalette2 = createPaletteSelectorFunction("palette2");
-const selectPalette3 = createPaletteSelectorFunction("palette3");
-
-const ratio1 = document.querySelector("#option1").addEventListener("change", selectPalette1);
-const ratio2 = document.querySelector("#option2").addEventListener("change", selectPalette2);
-const ratio3 = document.querySelector("#option3").addEventListener("change", selectPalette3);
-
-// change typography function
-
-const previewCardTypo = document.querySelector(".js-typocontainer");
-
-function createTypographySelectorFunction(classTypography) {
-  return function() {
-    previewCardTypo.className = `js-card ${classTypography}`;
-  };
-}
-
-const selectTypography1 = createTypographySelectorFunction("typography1");
-const selectTypography2 = createTypographySelectorFunction("typography2");
-const selectTypography3 = createTypographySelectorFunction("typography3");
-
-const ratioTypo1 = document.querySelector("#option1_typo").addEventListener("change", selectTypography1);
-const ratioTypo2 = document.querySelector("#option2_typo").addEventListener("change", selectTypography2);
-const ratioTypo3 = document.querySelector("#option3_typo").addEventListener("change", selectTypography3);
-
 //collapsible
 
 // const collapsibleTriggers = document.querySelectorAll(".js-collapsible__trigger");
@@ -176,7 +140,12 @@ function getJSONFromInputs(inputs) {
 function showURL(data) {
   if (data.success) {
     // Show URL card
-    urlCard.innerHTML = '<h3 class="created_card_h3">La tarjeta ha sido creada:</h3> <a class="created_card_small" target="_blank" href=' + data.cardURL + ">" + data.cardURL + "</a>";
+    urlCard.innerHTML =
+      '<h3 class="created_card_h3">La tarjeta ha sido creada:</h3> <a class="created_card_small" target="_blank" href=' +
+      data.cardURL +
+      ">" +
+      data.cardURL +
+      "</a>";
 
     // Update twitter button URL
     const twitterButton = document.querySelector(".js-button-twitter");
@@ -235,7 +204,10 @@ function changeLinkIcon(variableinput, classIcon) {
   const inputText = document.querySelector(variableinput);
 
   const handle = function() {
-    if (inputText.value.startsWith("http://") || inputText.value.startsWith("https://")) {
+    if (
+      inputText.value.startsWith("http://") ||
+      inputText.value.startsWith("https://")
+    ) {
       classIconUsed.href = inputText.value;
     } else {
       classIconUsed.href = `http://${inputText.value}`;
@@ -332,7 +304,14 @@ form.addEventListener("click", saveInfo);
 const buttonShare = document.querySelector(".share__btn");
 
 function changeButtonColor() {
-  if (nameInput.value && jobInput.value && emailInput.value && linkedinInput.value && githubInput.value && photo.src) {
+  if (
+    nameInput.value &&
+    jobInput.value &&
+    emailInput.value &&
+    linkedinInput.value &&
+    githubInput.value &&
+    photo.src
+  ) {
     //if (nameInput.value && jobInput.value && emailInput.value && linkedinInput.value && githubInput.value && browse.value) {
     buttonShare.style.background = "#e17334";
   } else {
