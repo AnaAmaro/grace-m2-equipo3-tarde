@@ -1,5 +1,9 @@
 "use strict";
 
+//constantes 
+
+const buttonShare = document.querySelector(".share__btn");
+
 // autopreview function
 
 autoPreview(".js-input-name", ".preview__bio--name", "Nombre Apellido");
@@ -20,27 +24,6 @@ function autoPreview(variableinput, variableoutput, defaultValue) {
   }
   inputText.addEventListener("keyup", changePara);
 }
-
-//collapsible
-
-// const collapsibleTriggers = document.querySelectorAll(".js-collapsible__trigger");
-
-// function updateCollapsible(event) {
-//   const currentCollapsible = event.currentTarget.parentElement;
-
-//   if (currentCollapsible.classList.contains("js-collapsible--open")) {
-//     currentCollapsible.classList.remove("js-collapsible--open");
-//   } else {
-//     for (const item of collapsibleTriggers) {
-//       item.parentElement.classList.remove("js-collapsible--open");
-//     }
-//     currentCollapsible.classList.add("js-collapsible--open");
-//   }
-// }
-
-// for (const item of collapsibleTriggers) {
-//   item.addEventListener("click", updateCollapsible);
-// }
 
 //botón reset
 const reset = document.querySelector(".js-sectiona__buton");
@@ -91,7 +74,6 @@ const loadFileToImages = function() {
 const form = document.querySelector("form");
 // Creo un objeto File Reader
 const fr = new FileReader();
-const button = document.querySelector(".share__btn");
 // Agarro el espacio donde se va a pintar la URL con la tarjeta generada
 const urlCard = document.querySelector(".created_card_small");
 
@@ -99,81 +81,40 @@ const urlCard = document.querySelector(".created_card_small");
 function loadPhoto(ev) {
   ev.preventDefault();
   let myPhoto = document.querySelector(".js-form__photo").files[0];
-  fr.addEventListener("load", sendData);
-  fr.readAsDataURL(myPhoto);
-}
-
-// function loadPalette(ev) {
-//   ev.preventDefault();
-
-//   fr.readAsDataURL(createPaletteSelectorFunction);
-// }
-
-// function loadPalette(ev) {
-//   ev.preventDefault();
-
-//   fr.readAsDataURL(createPaletteSelectorFunction);
-// }
-
-button.addEventListener("click", loadPhoto);
-//Función que es llamada después del loadPhoto y envía los valores JSON a la función que llama a la API.
-function sendData() {
-  let inputs = Array.from(form.elements);
-  let json = getJSONFromInputs(inputs);
-  json.photo = fr.result;
-  sendRequest(json);
-}
-// Función que transforma los valores del formulario en JSON excepto los botones.
-function getJSONFromInputs(inputs) {
-  return inputs.reduce(function(acc, input) {
-    if (input.getAttribute("type") === "radio") {
-      if (input.checked === true) {
-        acc[input.name] = input.value;
-      }
-    } else if (input.nodeName !== "BUTTON") {
-      acc[input.name] = input.value;
-    }
-    return acc;
-  }, {});
-}
-
-function showURL(data) {
-  if (data.success) {
-    // Show URL card
-    urlCard.innerHTML =
-      '<h3 class="created_card_h3">La tarjeta ha sido creada:</h3> <a class="created_card_small" target="_blank" href=' +
-      data.cardURL +
-      ">" +
-      data.cardURL +
-      "</a>";
-
-    // Update twitter button URL
-    const twitterButton = document.querySelector(".js-button-twitter");
-    twitterButton.href = `https://twitter.com/intent/tweet?text=Mira mi tarjeta de visita ${data.cardURL}`;
+  if (myPhoto){
+    fr.addEventListener("load", sendData);
+    fr.readAsDataURL(myPhoto);
   } else {
-    urlCard.innerHTML = "ERROR:" + data.error;
+    sendData();
   }
 }
 
-// Función que llama a la API y le pasa en el BODY el JSON previamente transformado con los valores del formulario.
-function sendRequest(json) {
-  fetch("https://us-central1-awesome-cards-cf6f0.cloudfunctions.net/card/", {
-    method: "POST",
-    body: JSON.stringify(json),
-    headers: {
-      "content-type": "application/json"
-    }
-  })
-    .then(function(resp) {
-      return resp.json();
-    })
-    .then(function(result) {
-      showURL(result);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-}
+// function loadPalette(ev) {
+//   ev.preventDefault();
+
+//   fr.readAsDataURL(createPaletteSelectorFunction);
+// }
+
+// function loadPalette(ev) {
+//   ev.preventDefault();
+
+//   fr.readAsDataURL(createPaletteSelectorFunction);
+// }
+
+// Función que transforma los valores del formulario en JSON excepto los botones.
+// function getJSONFromInputs(inputs) {
+//   return inputs.reduce(function(acc, input) {
+//     if (input.getAttribute("type") === "radio") {
+//       if (input.checked === true) {
+//         acc[input.name] = input.value;
+//       }
+//     } else if (input.nodeName !== "BUTTON") {
+//       acc[input.name] = input.value;
+//     }
+//     return acc;
+//   }, {});
+
+
 
 //Modificaciones: el Div final comentado de "landing_main" se tiene que descomentar, en el fillin_form el name: comepleteName pasa a ser name: name.
 // icon changes with info
@@ -300,24 +241,6 @@ form.addEventListener("keyup", saveInfo);
 form.addEventListener("click", saveInfo);
 
 //// changing color of button-share when form is completed
-
-const buttonShare = document.querySelector(".share__btn");
-
-function changeButtonColor() {
-  if (
-    nameInput.value &&
-    jobInput.value &&
-    emailInput.value &&
-    linkedinInput.value &&
-    githubInput.value &&
-    photo.src
-  ) {
-    //if (nameInput.value && jobInput.value && emailInput.value && linkedinInput.value && githubInput.value && browse.value) {
-    buttonShare.style.background = "#e17334";
-  } else {
-    buttonShare.style.background = "lightgrey";
-  }
-}
 
 form.addEventListener("keyup", changeButtonColor);
 
