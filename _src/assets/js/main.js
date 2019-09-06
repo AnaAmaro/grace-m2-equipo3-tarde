@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
 //constantes
 
-const buttonShare = document.querySelector('.share__btn');
+const buttonShare = document.querySelector(".share__btn");
 
 // autopreview function
 
-autoPreview('.js-input-name', '.preview__bio--name', 'Nombre Apellido');
-autoPreview('.js-input-job', '.preview__bio--job', 'Front-end developer');
+autoPreview(".js-input-name", ".preview__bio--name", "Nombre Apellido");
+autoPreview(".js-input-job", ".preview__bio--job", "Front-end developer");
 
 function autoPreview(variableinput, variableoutput, defaultValue) {
   const outputText = document.querySelector(variableoutput);
@@ -21,86 +21,38 @@ function autoPreview(variableinput, variableoutput, defaultValue) {
       outputText.innerHTML = defaultValue;
     }
   }
-  inputText.addEventListener('keyup', changePara);
+  inputText.addEventListener("keyup", changePara);
 }
-
-// change palettes function
-
-const previewCard = document.querySelector('.js-palettecontainer');
-
-function createPaletteSelectorFunction(classPalette) {
-  return function() {
-    previewCard.className = `card ${classPalette}`;
-  };
-}
-
-const selectPalette1 = createPaletteSelectorFunction('palette1');
-const selectPalette2 = createPaletteSelectorFunction('palette2');
-const selectPalette3 = createPaletteSelectorFunction('palette3');
-
-const ratio1 = document
-  .querySelector('#option1')
-  .addEventListener('change', selectPalette1);
-const ratio2 = document
-  .querySelector('#option2')
-  .addEventListener('change', selectPalette2);
-const ratio3 = document
-  .querySelector('#option3')
-  .addEventListener('change', selectPalette3);
-
-// change typography function
-
-const previewCardTypo = document.querySelector('.js-typocontainer');
-
-function createTypographySelectorFunction(classTypography) {
-  return function() {
-    previewCardTypo.className = `js-typocontainer ${classTypography}`;
-  };
-}
-
-const selectTypography1 = createTypographySelectorFunction('typography1');
-const selectTypography2 = createTypographySelectorFunction('typography2');
-const selectTypography3 = createTypographySelectorFunction('typography3');
-
-const ratioTypo1 = document
-  .querySelector('#option1_typo')
-  .addEventListener('change', selectTypography1);
-const ratioTypo2 = document
-  .querySelector('#option2_typo')
-  .addEventListener('change', selectTypography2);
-const ratioTypo3 = document
-  .querySelector('#option3_typo')
-  .addEventListener('change', selectTypography3);
 
 // imagen preview
-const browse = document.querySelector('.js-form__photo');
+const browse = document.querySelector(".js-form__photo");
 const loadFile = function(event) {
-  fr.addEventListener('load', loadFileToImages);
+  fr.addEventListener("load", loadFileToImages);
   fr.readAsDataURL(event.target.files[0]);
 };
-browse.addEventListener('change', loadFile);
+browse.addEventListener("change", loadFile);
 
 const loadFileToImages = function() {
-  let preview = document.querySelector('.preview');
+  let preview = document.querySelector(".preview");
   preview.src = fr.result;
-  let cardImage = document.querySelector('.js-card__image');
+  let cardImage = document.querySelector(".js-card__image");
   cardImage.style.backgroundImage = `url(${fr.result})`;
   saveInfo();
 };
 
 // CREAR ENLACE DE CARD
-const form = document.querySelector('form');
+const form = document.querySelector("form");
 // Creo un objeto File Reader
 const fr = new FileReader();
 // Agarro el espacio donde se va a pintar la URL con la tarjeta generada
-const urlCard = document.querySelector('.created_card_small');
+const urlCard = document.querySelector(".created_card_small");
 
 //Función que coge la foto y la transforma en formato correcto para el JSON
 function loadPhoto(ev) {
   ev.preventDefault();
-  let myPhoto = document.querySelector('.js-form__photo').files[0];
+  let myPhoto = document.querySelector(".js-form__photo").files[0];
   if (myPhoto) {
-    fr.addEventListener('load', sendData);
+    fr.addEventListener("load", sendData);
     fr.readAsDataURL(myPhoto);
   } else {
     sendData();
@@ -141,18 +93,18 @@ function changeIconColor(variableinput, classInput, classIcon) {
 
   const handle = function() {
     if (inputText.value) {
-      classIconUsed.style.color = '#114e4e';
+      classIconUsed.style.color = "#114e4e";
     } else {
-      classIconUsed.style.color = 'lightgrey';
+      classIconUsed.style.color = "lightgrey";
     }
   };
-  document.querySelector(classInput).addEventListener('keyup', handle);
+  document.querySelector(classInput).addEventListener("keyup", handle);
 }
 
-changeIconColor('.js-input-phone', '#phone', '.js-icon-phone');
-changeIconColor('.js-input-email', '#email', '.js-icon-email');
-changeIconColor('.js-input-github', '#github', '.js-icon-github');
-changeIconColor('.js-input-linkedin', '#linkedin', '.js-icon-linkedin');
+changeIconColor(".js-input-phone", "#phone", ".js-icon-phone");
+changeIconColor(".js-input-email", "#email", ".js-icon-email");
+changeIconColor(".js-input-github", "#github", ".js-icon-github");
+changeIconColor(".js-input-linkedin", "#linkedin", ".js-icon-linkedin");
 
 // icon clickables when you write email,github & linkedin
 
@@ -162,47 +114,47 @@ function changeLinkIcon(variableinput, classIcon) {
 
   const handle = function() {
     if (
-      inputText.value.startsWith('http://') ||
-      inputText.value.startsWith('https://')
+      inputText.value.startsWith("http://") ||
+      inputText.value.startsWith("https://")
     ) {
       classIconUsed.href = inputText.value;
     } else {
       classIconUsed.href = `http://${inputText.value}`;
     }
   };
-  document.querySelector(variableinput).addEventListener('keyup', handle);
+  document.querySelector(variableinput).addEventListener("keyup", handle);
 }
 
-changeLinkIcon('.js-input-email', '.js-icon-link-email');
-changeLinkIcon('.js-input-github', '.js-icon-link-github');
-changeLinkIcon('.js-input-linkedin', '.js-icon-link-linkedin');
+changeLinkIcon(".js-input-email", ".js-icon-link-email");
+changeLinkIcon(".js-input-github", ".js-icon-link-github");
+changeLinkIcon(".js-input-linkedin", ".js-icon-link-linkedin");
 
 // LocalStorage
-const nameInput = document.querySelector('.js-input-name');
-const jobInput = document.querySelector('.js-input-job');
-const photo = document.querySelector('.js-photo');
-const emailInput = document.querySelector('.js-input-email');
-const phoneInput = document.querySelector('.js-input-phone');
-const linkedinInput = document.querySelector('.js-input-linkedin');
-const githubInput = document.querySelector('.js-input-github');
-const paletteInput = document.querySelectorAll('.js-palettes');
-const itemInputs = document.querySelectorAll('.item__input');
-const typograInputs = document.querySelectorAll('.js-typography');
-const photoCard = document.querySelector('.js-card__image');
+const nameInput = document.querySelector(".js-input-name");
+const jobInput = document.querySelector(".js-input-job");
+const photo = document.querySelector(".js-photo");
+const emailInput = document.querySelector(".js-input-email");
+const phoneInput = document.querySelector(".js-input-phone");
+const linkedinInput = document.querySelector(".js-input-linkedin");
+const githubInput = document.querySelector(".js-input-github");
+const paletteInput = document.querySelectorAll(".js-palettes");
+const itemInputs = document.querySelectorAll(".item__input");
+const typograInputs = document.querySelectorAll(".js-typography");
+const photoCard = document.querySelector(".js-card__image");
 
 function readChoosenPalette() {
-  const inputChecked = document.querySelector('.js-palettes:checked');
+  const inputChecked = document.querySelector(".js-palettes:checked");
   return parseInt(inputChecked.value);
 }
 
 function readChoosenTypogra() {
-  const inputChecked = document.querySelector('.js-typography:checked');
+  const inputChecked = document.querySelector(".js-typography:checked");
   return parseInt(inputChecked.value);
 }
 
 function previewLocalStorage() {
   for (let i = 0; i < itemInputs.length; i = i + 1) {
-    itemInputs[i].dispatchEvent(new Event('keyup'));
+    itemInputs[i].dispatchEvent(new Event("keyup"));
   }
 }
 
@@ -222,12 +174,12 @@ const saveInfo = () => {
   formInfo.typogra = readChoosenTypogra();
 
   // Pasar objeto a cadena
-  localStorage.setItem('userData', JSON.stringify(formInfo));
+  localStorage.setItem("userData", JSON.stringify(formInfo));
   changeButtonColor();
 };
 
 const getFromLocalStorage = () => {
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   if (userData !== null) {
     paletteInput.value = userData.palette;
     nameInput.value = userData.name;
@@ -248,12 +200,12 @@ const getFromLocalStorage = () => {
 };
 
 // const form = document.querySelector(".js-form");
-form.addEventListener('keyup', saveInfo);
-form.addEventListener('click', saveInfo);
+form.addEventListener("keyup", saveInfo);
+form.addEventListener("click", saveInfo);
 
 //// changing color of button-share when form is completed
 
-form.addEventListener('keyup', changeButtonColor);
+form.addEventListener("keyup", changeButtonColor);
 
 const startApp = () => {
   if (!!formInfo === true) {
