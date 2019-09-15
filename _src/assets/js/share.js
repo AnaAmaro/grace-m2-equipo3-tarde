@@ -3,7 +3,7 @@ function showURL(data) {
   if (data.success) {
     // Show URL card
     urlCard.innerHTML =
-      '<h3 class="created_card_h3">La tarjeta ha sido creada:</h3> <a class="created_card_small" target="_blank" href=' +
+      '<h3 class="created_card_h3">flex</h3> <a class="created_card_small" target="_blank" href=' +
       data.cardURL +
       ">" +
       data.cardURL +

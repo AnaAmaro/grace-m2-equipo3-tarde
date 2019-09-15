@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 const collapsibleTriggers = document.querySelectorAll(".js-collapsible__trigger");
 
 function updateCollapsible(event) {
